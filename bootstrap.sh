@@ -29,7 +29,7 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 REPO_URL=${WPSI_UTILS_REPO_URL:-"https://github.com/wps/wpsi_utils.git"}
-BRANCH=${WPSI_UTILS_BRANCH:-"main"}
+BRANCH=${WPSI_UTILS_BRANCH:-"master"}
 ENTRYPOINT=${WPSI_UTILS_ENTRYPOINT:-"bin/wpsi_utils.sh"}
 
 TMPDIR=$(mktemp -d)
