@@ -1,5 +1,5 @@
 # Path of Exile Helpers
 
-This module ships local copies of the `zone_changer` and `graph_tracker` projects under `tools/`. Running the preflight/install action will sync them into your home directory (defaults: `~/zone_changer` and `~/graph_tracker`) so you can use or modify them outside the repo. Set `ZONE_CHANGER_DIR` and `GRAPH_TRACKER_DIR` to change the destination, and export `POE_SYNC_FORCE=1` to overwrite existing installs.
+This module ships local copies of the `zone_changer` and `graph_tracker` projects under `tools/`. Each time you invoke a helper, the scripts first call `verify-prereqs.sh` to ensure the projects exist on disk. By default they are synced to `~/zone_changer` and `~/graph_tracker`; set `ZONE_CHANGER_DIR` / `GRAPH_TRACKER_DIR` to relocate them. Use `POE_SYNC_FORCE=1` if you want to overwrite an existing installation.
 
-Launchers are provided so you can trigger each helper directly from the toolbox once they are installed.
+After the sync step, the helper launches immediately so the toolbox acts as a one-click installer/runner for your PoE utilities.

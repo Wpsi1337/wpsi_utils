@@ -16,5 +16,5 @@ commands = ["python3", "bash"]
 [actions]
 preflight = "scripts/verify-prereqs.sh"
 install = "scripts/verify-prereqs.sh"
-configure = "scripts/launch-zone-changer.sh"
-postcheck = "scripts/launch-graph-tracker.sh"
+configure = "scripts/zone-changer.sh"
+postcheck = "scripts/graph-tracker.sh"
