@@ -1,6 +1,7 @@
 //! Module registry utilities.
 
 use crate::Result;
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -15,6 +16,8 @@ pub struct Module {
     pub enabled: bool,
     #[serde(skip)]
     pub root: PathBuf,
+    #[serde(default)]
+    pub actions: HashMap<String, String>,
 }
 
 /// Registry handle that knows where module metadata lives on disk.

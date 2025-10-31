@@ -1,5 +1,7 @@
+mod app_state;
 mod ui;
 
+use app_state::App;
 use crossterm::{
     event::{self, Event, KeyCode},
     execute,
@@ -14,14 +16,18 @@ use std::{
 use toolbox_core::registry;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let modules_dir = env::var("WPSI_UTILS_MODULE_DIR").unwrap_or_else(|_| "modules".to_string());
+    let modules_path = PathBuf::from(&modules_dir);
+    let modules = load_modules(&modules_path);
+    let mut app = App::new(modules, modules_path);
+
     enable_raw_mode()?;
     let mut stdout = io::stdout();
     execute!(stdout, EnterAlternateScreen)?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
-    let module_labels = load_module_labels();
-    let result = run(&mut terminal, &module_labels);
+    let result = run(&mut terminal, &mut app);
 
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
@@ -34,44 +40,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn load_module_labels() -> Vec<String> {
-    let modules_dir = env::var("WPSI_UTILS_MODULE_DIR").unwrap_or_else(|_| "modules".to_string());
-    let modules_path = PathBuf::from(&modules_dir);
-    match registry::discover_modules(&modules_path) {
-        Ok(modules) if !modules.is_empty() => modules
-            .into_iter()
-            .map(|module| {
-                let relative = module.root.strip_prefix(&modules_path).unwrap_or(&module.root);
-                format!("{} ({}) – {}", module.name, module.category, display_path(relative))
-            })
-            .collect(),
-        Ok(_) => default_modules(),
+fn load_modules(path: &Path) -> Vec<registry::Module> {
+    match registry::discover_modules(path) {
+        Ok(modules) => modules,
         Err(err) => {
-            eprintln!("Failed to discover modules in {}: {err}", modules_path.display());
-            default_modules()
+            eprintln!("Failed to discover modules in {}: {err}", path.display());
+            Vec::new()
         }
     }
 }
 
-fn default_modules() -> Vec<String> {
-    vec!["Example Module A".into(), "Example Module B".into(), "Example Module C".into()]
-}
-
-fn display_path(path: &Path) -> String {
-    path.display().to_string()
-}
-
-fn run<B: ratatui::prelude::Backend>(
-    terminal: &mut Terminal<B>,
-    modules: &[String],
-) -> io::Result<()> {
+fn run<B: ratatui::prelude::Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<()> {
     loop {
-        terminal.draw(|f| ui::draw(f, modules))?;
+        terminal.draw(|f| ui::draw(f, app))?;
 
         if event::poll(Duration::from_millis(250))? {
             if let Event::Key(key) = event::read()? {
                 match key.code {
                     KeyCode::Char('q') | KeyCode::Esc => break,
+                    KeyCode::Tab => app.focus_next(),
+                    KeyCode::BackTab => app.focus_prev(),
+                    KeyCode::Right => app.focus_next(),
+                    KeyCode::Left => app.focus_prev(),
+                    KeyCode::Up | KeyCode::Char('k') => app.move_up(),
+                    KeyCode::Down | KeyCode::Char('j') => app.move_down(),
+                    KeyCode::Enter => app.activate(),
                     _ => {}
                 }
             }
