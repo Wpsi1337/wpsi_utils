@@ -1,6 +1,6 @@
 id = "games-poe"
 name = "Path of Exile Helpers"
-description = "Integrates local PoE helper scripts such as zone changer and graph tracker."
+description = "Local backup + launchers for zone_changer and graph_tracker"
 category = "gaming"
 script_kind = "bash"
 enabled = false
