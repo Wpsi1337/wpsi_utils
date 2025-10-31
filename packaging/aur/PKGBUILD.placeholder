@@ -1,0 +1,21 @@
+# Maintainer: Your Name <you@example.com>
+# pkgname=toolbox
+declare -r pkgname=toolbox
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="TODO: toolbox description"
+arch=('any')
+url="https://example.com/toolbox"
+license=('MIT')
+depends=()
+makedepends=('cargo')
+source=("TODO://add-source-tarball")
+sha256sums=('SKIP')
+
+build() {
+    echo "TODO: build steps go here"
+}
+
+package() {
+    echo "TODO: package files into \$pkgdir"
+}

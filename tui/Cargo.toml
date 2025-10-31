@@ -1,0 +1,11 @@
+[package]
+name = "toolbox-tui"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[dependencies]
+crossterm = "0.27"
+ratatui = "0.26"
+toolbox-core = { path = "../core" }

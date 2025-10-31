@@ -1,0 +1,11 @@
+pkgbase = toolbox
+	pkgdesc = TODO: toolbox description
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://example.com/toolbox
+	arch = any
+	license = MIT
+	source = TODO://add-source-tarball
+	sha256sums = SKIP
+
+pkgname = toolbox

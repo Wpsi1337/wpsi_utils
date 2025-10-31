@@ -1,0 +1,21 @@
+# Reference schema for module metadata files.
+id = "unique-id"                     # required, lowercase kebab-case
+name = "Human Title"
+description = "What this module does."
+category = "apps|tweaks|drivers|gaming|media|network|system|other"
+script_kind = "bash|python|ansible|rust"   # how scripts will be provided
+enabled = false
+
+[compat]
+distros = ["arch", "debian", "fedora", "opensuse", "nixos", "generic"]
+desktop_envs = ["kde", "gnome", "xfce", "i3", "sway"]
+
+[dependencies]
+packages = ["example-pkg"]          # optional
+commands = ["curl", "git"]          # optional
+
+[actions]                           # names only; scripts live in ./scripts/
+preflight = "preflight.sh"
+install = "install.sh"
+configure = "configure.sh"
+postcheck = "postcheck.sh"

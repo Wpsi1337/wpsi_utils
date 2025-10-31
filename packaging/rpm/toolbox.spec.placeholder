@@ -1,0 +1,28 @@
+Name:           toolbox
+Version:        0.1.0
+Release:        1%{?dist}
+Summary:        TODO: toolbox summary
+
+License:        MIT
+URL:            https://example.com/toolbox
+Source0:        TODO://add-source-tarball
+BuildRequires:  rust
+Requires:       
+
+%description
+Placeholder spec file for the toolbox project. Replace this text with a real description.
+
+%prep
+# TODO: unpack source
+
+%build
+# TODO: build steps
+
+%install
+# TODO: install artifacts into %{buildroot}
+
+%files
+# TODO: list files the package should ship
+
+%changelog
+# TODO: add changelog entries

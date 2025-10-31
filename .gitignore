@@ -1,7 +1,9 @@
 # Build artifacts
 dist/
 build/
-target/
+/target/
+**/*.rs.bk
+Cargo.lock
 
 # Temporary files
 tmp/
@@ -11,3 +13,4 @@ tmp/
 .idea/
 .vscode/
 .DS_Store
+Prompts.txt

@@ -1,0 +1,4 @@
+# example_config.toml
+auto_execute = ["Fastfetch", "Alacritty", "Kitty"]  # replace with your module names
+skip_confirmation = true
+size_bypass = true

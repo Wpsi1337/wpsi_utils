@@ -1,0 +1,20 @@
+id = "example-app"
+name = "Example Application"
+description = "Placeholder module demonstrating how to ship app installers."
+category = "apps"
+script_kind = "bash"
+enabled = false
+
+[compat]
+distros = ["arch", "debian", "fedora", "opensuse", "nixos", "generic"]
+desktop_envs = ["kde", "gnome", "xfce", "i3", "sway"]
+
+[dependencies]
+packages = ["example-pkg"]
+commands = ["curl", "git"]
+
+[actions]
+preflight = "preflight.sh"
+install = "install.sh"
+configure = "configure.sh"
+postcheck = "postcheck.sh"

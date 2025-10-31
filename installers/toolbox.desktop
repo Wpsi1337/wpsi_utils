@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Toolbox (TODO)
+Comment=Placeholder desktop launcher for the toolbox TUI
+Exec=toolbox --gui
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Utility;

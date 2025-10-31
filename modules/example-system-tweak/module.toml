@@ -1,0 +1,20 @@
+id = "example-system-tweak"
+name = "Example System Tweak"
+description = "Demonstrates how to provide a single tweak script."
+category = "tweaks"
+script_kind = "bash"
+enabled = false
+
+[compat]
+distros = ["arch", "debian", "fedora", "opensuse", "nixos", "generic"]
+desktop_envs = ["kde", "gnome", "xfce", "i3", "sway"]
+
+[dependencies]
+packages = []
+commands = []
+
+[actions]
+preflight = "apply.sh"
+install = "apply.sh"
+configure = "apply.sh"
+postcheck = "apply.sh"

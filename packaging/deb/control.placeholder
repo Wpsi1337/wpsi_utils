@@ -1,0 +1,10 @@
+Package: toolbox
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: all
+Essential: no
+Depends: 
+Maintainer: Your Name <you@example.com>
+Description: TODO toolbox package
+ This is a placeholder control file. Fill in real metadata before building a .deb package.
