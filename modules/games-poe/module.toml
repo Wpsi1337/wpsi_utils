@@ -1,0 +1,20 @@
+id = "games-poe"
+name = "Path of Exile Helpers"
+description = "Integrates local PoE helper scripts such as zone changer and graph tracker."
+category = "gaming"
+script_kind = "bash"
+enabled = false
+
+[compat]
+distros = ["arch", "debian", "fedora", "opensuse", "nixos", "generic"]
+desktop_envs = ["kde", "gnome", "xfce", "i3", "sway"]
+
+[dependencies]
+packages = ["python", "bash"]
+commands = ["python3", "bash"]
+
+[actions]
+preflight = "scripts/verify-prereqs.sh"
+install = "scripts/verify-prereqs.sh"
+configure = "scripts/launch-zone-changer.sh"
+postcheck = "scripts/launch-graph-tracker.sh"
