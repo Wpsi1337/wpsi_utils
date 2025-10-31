@@ -1,0 +1,13 @@
+# Build artifacts
+dist/
+build/
+target/
+
+# Temporary files
+tmp/
+*.log
+
+# Editor configs
+.idea/
+.vscode/
+.DS_Store
