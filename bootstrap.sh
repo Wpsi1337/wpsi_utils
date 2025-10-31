@@ -28,7 +28,7 @@ if ! command -v git >/dev/null 2>&1; then
     exit 1
 fi
 
-REPO_URL=${WPSI_UTILS_REPO_URL:-"https://github.com/wps/wpsi_utils.git"}
+REPO_URL=${WPSI_UTILS_REPO_URL:-"https://github.com/Wpsi1337/wpsi_utils.git"}
 BRANCH=${WPSI_UTILS_BRANCH:-"master"}
 ENTRYPOINT=${WPSI_UTILS_ENTRYPOINT:-"bin/wpsi_utils.sh"}
 
