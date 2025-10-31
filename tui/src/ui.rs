@@ -7,24 +7,25 @@ use ratatui::{
 };
 
 /// Render the placeholder TUI frame with static module listings.
-pub fn draw(f: &mut Frame, modules: &[&str]) {
+pub fn draw(f: &mut Frame, modules: &[String]) {
     let size = f.size();
     let area = centered_rect(60, 60, size);
 
     let mut lines: Vec<Line> = Vec::new();
-    lines.push(Line::from("Modules (placeholder):".bold()));
-    for module in modules {
-        lines.push(Line::from(format!("  • {module}")));
+    lines.push(Line::from("Modules:".bold()));
+    if modules.is_empty() {
+        lines.push(Line::from("  (no modules discovered – add directories with module.toml)"));
+    } else {
+        for module in modules {
+            lines.push(Line::from(format!("  • {module}")));
+        }
     }
     lines.push(Line::from(""));
     lines.push(Line::from("Press q to exit."));
 
-    let block = Block::default()
-        .title("Toolbox (TODO)")
-        .borders(Borders::ALL);
-    let paragraph = Paragraph::new(Text::from(lines))
-        .block(block)
-        .alignment(ratatui::layout::Alignment::Left);
+    let block = Block::default().title("Toolbox (TODO)").borders(Borders::ALL);
+    let paragraph =
+        Paragraph::new(Text::from(lines)).block(block).alignment(ratatui::layout::Alignment::Left);
 
     f.render_widget(paragraph, area);
 }

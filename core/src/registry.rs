@@ -1,6 +1,7 @@
-//! Module registry placeholders.
+//! Module registry utilities.
 
 use crate::Result;
+use std::fs;
 use std::path::{Path, PathBuf};
 
 /// Metadata describing a module that will eventually ship with the toolbox.
@@ -12,6 +13,8 @@ pub struct Module {
     pub category: String,
     pub script_kind: String,
     pub enabled: bool,
+    #[serde(skip)]
+    pub root: PathBuf,
 }
 
 /// Registry handle that knows where module metadata lives on disk.
@@ -34,7 +37,32 @@ impl Registry {
 
 /// Look for modules beneath the path.
 pub fn discover_modules(dir: impl AsRef<Path>) -> Result<Vec<Module>> {
-    let _ = dir.as_ref();
-    // TODO: walk the filesystem and parse module.toml files.
-    Ok(vec![])
+    let dir = dir.as_ref();
+    if !dir.exists() {
+        return Ok(vec![]);
+    }
+
+    let mut modules = Vec::new();
+    visit_dir(dir, &mut modules)?;
+    Ok(modules)
+}
+
+fn visit_dir(dir: &Path, modules: &mut Vec<Module>) -> Result<()> {
+    let module_file = dir.join("module.toml");
+    if module_file.is_file() {
+        let mut module: Module = toml::from_str(&fs::read_to_string(&module_file)?)?;
+        module.root = dir.to_path_buf();
+        modules.push(module);
+        return Ok(());
+    }
+
+    for entry in fs::read_dir(dir)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.is_dir() {
+            visit_dir(&path, modules)?;
+        }
+    }
+
+    Ok(())
 }
