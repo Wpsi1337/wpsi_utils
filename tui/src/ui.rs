@@ -1,13 +1,13 @@
 use ratatui::{
     layout::{Constraint, Direction, Layout, Rect},
-    style::{Style, Stylize},
+    style::Stylize,
     text::{Line, Text},
     widgets::{Block, Borders, Paragraph},
     Frame,
 };
 
 /// Render the placeholder TUI frame with static module listings.
-pub fn draw<B: ratatui::prelude::Backend>(f: &mut Frame<B>, modules: &[&str]) {
+pub fn draw(f: &mut Frame, modules: &[&str]) {
     let size = f.size();
     let area = centered_rect(60, 60, size);
 

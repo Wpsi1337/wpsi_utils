@@ -1,6 +1,6 @@
 //! Module registry placeholders.
 
-use crate::{Error, Result};
+use crate::Result;
 use std::path::{Path, PathBuf};
 
 /// Metadata describing a module that will eventually ship with the toolbox.

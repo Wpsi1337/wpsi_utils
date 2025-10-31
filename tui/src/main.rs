@@ -20,9 +20,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let result = run(&mut terminal, &modules);
 
     disable_raw_mode()?;
-    let backend = terminal.into_inner();
-    let mut stdout = backend.into_inner();
-    execute!(stdout, LeaveAlternateScreen)?;
+    execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
+    terminal.show_cursor()?;
 
     if let Err(err) = result {
         eprintln!("TODO: handle TUI errors: {err}");
